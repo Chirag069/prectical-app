@@ -8,7 +8,6 @@ export const apiClient = axios.create({
 
 apiClient.interceptors.request.use(async config => {
   try {
-    // redux-persist stores under key 'persist:root'
     const raw = await AsyncStorage.getItem('persist:root');
     if (raw) {
       const root = JSON.parse(raw);
@@ -25,9 +24,7 @@ apiClient.interceptors.request.use(async config => {
 apiClient.interceptors.response.use(
   res => res,
   error => {
-    if (error.response?.status === 401) {
-      // TODO: dispatch logout
-    }
+    if (error.response?.status === 401) {}
     return Promise.reject(error);
   },
 );

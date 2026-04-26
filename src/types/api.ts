@@ -1,5 +1,3 @@
-// ─── Auth ────────────────────────────────────────────────────────────────────
-
 export interface User {
   usr_id: number;
   usr_fname: string;
@@ -20,8 +18,6 @@ export interface LoginResponse {
     token: string;
   };
 }
-
-// ─── Events ──────────────────────────────────────────────────────────────────
 
 export interface DanceStyle {
   ds_id: number;

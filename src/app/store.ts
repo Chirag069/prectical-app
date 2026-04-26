@@ -3,16 +3,14 @@ import { persistStore, persistReducer } from 'redux-persist';
 import rootReducer from './rootReducer';
 import { Storage } from '@storage/mmkvStorage';
 
-// ─── Single persist config on root (same pattern as reference) ───────────────
 const persistConfig = {
   key: 'root',
   storage: Storage,
-  whitelist: ['auth', 'wishlist'], // only auth + wishlist persisted
+  whitelist: ['auth', 'wishlist'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// ─── Store ───────────────────────────────────────────────────────────────────
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware =>

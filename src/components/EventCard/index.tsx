@@ -27,40 +27,23 @@ export default function EventCard({ item, onPress, onShare, onFavourite }: Event
 
   return (
     <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.85}>
-
-      {/* ── Arrow top-right ── */}
       <TouchableOpacity style={styles.arrowBtn} onPress={onPress}>
         <SVGs.ArrowRight width={fs(20)} height={fs(20)} color={Colors.textPrimary} />
       </TouchableOpacity>
-
-      {/* ── Row: thumb + info ── */}
       <View style={styles.row}>
-
-        {/* Thumbnail */}
         <Image
           source={{ uri: item.event_profile_img }}
           style={styles.thumb}
           resizeMode="cover"
         />
-
-        {/* Info block */}
         <View style={styles.info}>
-
-          {/* Title */}
           <Text style={styles.title} numberOfLines={1}>{item.event_name}</Text>
-
-          {/* Date + location row */}
           <View style={styles.metaRow}>
             <Text style={styles.date}>{dateLabel}</Text>
             <Text style={styles.location}>{item.city}, {item.country}</Text>
           </View>
-
-          {/* Price */}
           <Text style={styles.price}>{price}</Text>
-
-          {/* Tags + actions row */}
           <View style={styles.bottomRow}>
-            {/* Dance style tags */}
             <View style={styles.tags}>
               {item.danceStyles.map(ds => (
                 <View key={ds.ds_id} style={styles.tag}>
@@ -68,24 +51,17 @@ export default function EventCard({ item, onPress, onShare, onFavourite }: Event
                 </View>
               ))}
             </View>
-
-            {/* Share + Heart */}
             <View style={styles.actions}>
               <TouchableOpacity onPress={onShare} style={styles.actionBtn}>
                 <SVGs.Vector width={fs(18)} height={fs(18)} />
               </TouchableOpacity>
               <TouchableOpacity onPress={onFavourite} style={styles.actionBtn}>
                 {isFav
-                  ? <SVGs.HeartFilled width={fs(20)} height={fs(20)}  />
-                  :
-                <SVGs.HeartOutline
-                  width={fs(20)}
-                  height={fs(20)}
-                />}
+                  ? <SVGs.HeartFilled width={fs(20)} height={fs(20)} />
+                  : <SVGs.HeartOutline width={fs(20)} height={fs(20)} />}
               </TouchableOpacity>
             </View>
           </View>
-
         </View>
       </View>
     </TouchableOpacity>
@@ -123,7 +99,6 @@ const styles = StyleSheet.create({
   },
   info: {
     flex: 1,
-    // backgroundColor: 'red',
   },
   title: {
     fontFamily: Fonts.semiBold,

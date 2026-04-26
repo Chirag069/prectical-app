@@ -1,7 +1,6 @@
 import React from 'react';
 import { SvgProps } from 'react-native-svg';
 
-// ─── Existing SVG imports ────────────────────────────────────────────────────
 import ArrowRight from './arrow-right.svg';
 import Heart from './heart_outline.svg';
 import HeartOutline from './heart_outline (1).svg';
@@ -10,8 +9,6 @@ import Search from './search (1).svg';
 import User from './user (1).svg';
 import Vector from './vector.svg';
 import Event from './Calendar_Days.svg';
-
-// ─── Add new SVG imports here as you drop files into src/assets/svg/ ─────────
 
 interface IconProps extends SvgProps {
   width?: number;
@@ -37,7 +34,6 @@ const wrapIcon = (Component: React.ComponentType<SvgProps>): IconComponent => {
   return Wrapped;
 };
 
-// ─── Icon map ────────────────────────────────────────────────────────────────
 const SVG_ICONS = {
   ArrowRight:   wrapIcon(ArrowRight),
   HeartOutline: wrapIcon(HeartOutline),
@@ -47,10 +43,8 @@ const SVG_ICONS = {
   Vector:       wrapIcon(Vector),
   HeartFilled:  wrapIcon(Heart),
   Event:        wrapIcon(Event),
-  // Add new entries here matching the import name above
 } as const;
 
-/** Union of all available SVG icon names — use for autocomplete. */
 export type SvgIconName = keyof typeof SVG_ICONS;
 
 export const SVGs: typeof SVG_ICONS = SVG_ICONS;

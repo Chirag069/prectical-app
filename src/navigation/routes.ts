@@ -1,10 +1,5 @@
-// ─── Single source of truth for all screen names ───────────────────────────
-
 export const Routes = {
-  // Auth stack
   Login: 'Login',
-
-  // Main tab screens
   Search: 'Search',
   Events: 'Events',
   Favourites: 'Favourites',
