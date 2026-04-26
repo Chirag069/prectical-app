@@ -2,56 +2,53 @@ import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { Colors } from '@constants/colors';
 import { Fonts } from '@constants/fonts';
-import { wp, fs, sp, radius } from '@utils/responsive';
-
-const FAVOURITES = [
-  { id: '1', title: 'ADICTO: Berlin Festival', date: '24.02.2022 – 26.02.2022',     price: '€30 – €100', location: 'Berlin, Germany', tags: ['Workshop', 'Bachata'] },
-  { id: '2', title: 'Berlin Sensual Nights',    date: '29.02.2022 | 21:00 – 04:00', price: '€30 – €100', location: 'Berlin, Germany', tags: ['Party', 'Bachata', 'Salsa', 'Kizz'] },
-];
+import { fs, sp } from '@utils/responsive';
+import { useAppDispatch, useAppSelector } from '@hooks/redux';
+import { toggleWishlist } from '@features/wishlist/wishlistSlice';
+import EventCard from '@components/EventCard';
+import type { Event } from '@appTypes/api';
+import CustomHeader from '@components/CustomHeader';
 
 export default function FavouritesScreen() {
+  const dispatch = useAppDispatch();
+  const items = useAppSelector(s => s.wishlist.items);
+  const user  = useAppSelector(s => s.auth.user);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.greeting}>Hello Renzo!</Text>
-      <Text style={styles.sub}>Are you ready to dance?</Text>
-      <FlatList
-        data={FAVOURITES}
-        keyExtractor={item => item.id}
-        contentContainerStyle={styles.list}
-        renderItem={({ item }) => (
-          <View style={styles.card}>
-            <View style={styles.thumb} />
-            <View style={styles.info}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.date}>{item.date}</Text>
-              <Text style={styles.price}>{item.price}</Text>
-              <View style={styles.tags}>
-                {item.tags.map(tag => (
-                  <View key={tag} style={styles.tag}>
-                    <Text style={styles.tagText}>{tag}</Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-          </View>
-        )}
+     <CustomHeader
+        title={`Hello ${user?.usr_fname ?? 'there'}!`}
+        subtitle="Are you ready to dance?"
       />
+      {items.length === 0 ? (
+        <View style={styles.empty}>
+          <Text style={styles.emptyText}>No favourites yet.</Text>
+        </View>
+      ) : (
+        <FlatList
+          data={items}
+          keyExtractor={item => String(item.event_date_id)}
+          contentContainerStyle={styles.list}
+          renderItem={({ item }: { item: Event }) => (
+            <EventCard
+              item={item}
+              onPress={() => {}}
+              onShare={() => {}}
+              onFavourite={() => dispatch(toggleWishlist(item))}
+            />
+          )}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.screenBg },
-  greeting:  { fontFamily: Fonts.bold,    fontSize: fs(28), color: Colors.textPrimary, margin: sp(16), marginBottom: sp(4) },
-  sub:       { fontFamily: Fonts.regular, fontSize: fs(14), color: Colors.textSubtle,  marginHorizontal: sp(16), marginBottom: sp(12) },
-  list:      { padding: sp(12), gap: sp(12) },
-  card:      { flexDirection: 'row', backgroundColor: Colors.white, borderRadius: radius(10), padding: sp(12) },
-  thumb:     { width: wp(80), height: wp(80), backgroundColor: Colors.thumbBg, borderRadius: radius(6), marginRight: sp(10) },
-  info:      { flex: 1 },
-  title:     { fontFamily: Fonts.semiBold, fontSize: fs(15), color: Colors.textPrimary, marginBottom: sp(2) },
-  date:      { fontFamily: Fonts.regular,  fontSize: fs(12), color: Colors.primary,     marginBottom: sp(2) },
-  price:     { fontFamily: Fonts.regular,  fontSize: fs(12), color: Colors.textPrice,   marginBottom: sp(6) },
-  tags:      { flexDirection: 'row', flexWrap: 'wrap', gap: sp(4) },
-  tag:       { borderWidth: 1, borderColor: Colors.borderMuted, borderRadius: radius(20), paddingHorizontal: sp(8), paddingVertical: sp(2) },
-  tagText:   { fontFamily: Fonts.regular, fontSize: fs(11), color: Colors.textTag },
+  container:  { flex: 1, backgroundColor: Colors.screenBg },
+  greeting:   { fontFamily: Fonts.bold,    fontSize: fs(28), color: Colors.textPrimary, margin: sp(16), marginBottom: sp(4) },
+  sub:        { fontFamily: Fonts.regular, fontSize: fs(14), color: Colors.textSubtle,  marginHorizontal: sp(16), marginBottom: sp(12) },
+  list:       { padding: fs(12) },
+  empty:      { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  emptyText:  { fontFamily: Fonts.regular, fontSize: fs(14), color: Colors.textMuted },
 });

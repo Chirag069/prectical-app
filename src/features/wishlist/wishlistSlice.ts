@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { Event } from '@types/api';
+import type { Event } from '@appTypes/api';
 
 type WishlistState = {
   items: Event[];

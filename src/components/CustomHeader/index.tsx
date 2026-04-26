@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: Fonts.semiBold,
-    fontSize: fs(26),
+    fontSize: fs(24),
     color: Colors.textPrimary,
     marginBottom: sp(4),
   },

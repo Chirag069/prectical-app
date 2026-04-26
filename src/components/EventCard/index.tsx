@@ -4,7 +4,7 @@ import { Colors } from '@constants/colors';
 import { Fonts } from '@constants/fonts';
 import { wp, fs, sp, radius } from '@utils/responsive';
 import { SVGs } from '@svg';
-import type { Event } from '@types/api';
+import type { Event } from '@appTypes/api';
 
 interface EventCardProps {
   item: Event;
@@ -75,12 +75,13 @@ export default function EventCard({ item, onPress, onShare, onFavourite }: Event
                 <SVGs.Vector width={fs(18)} height={fs(18)} />
               </TouchableOpacity>
               <TouchableOpacity onPress={onFavourite} style={styles.actionBtn}>
+                {isFav
+                  ? <SVGs.HeartFilled width={fs(20)} height={fs(20)}  />
+                  :
                 <SVGs.HeartOutline
                   width={fs(20)}
                   height={fs(20)}
-                  color={isFav ? Colors.primary : Colors.textMuted}
-                  fill={isFav ? Colors.primary : 'none'}
-                />
+                />}
               </TouchableOpacity>
             </View>
           </View>

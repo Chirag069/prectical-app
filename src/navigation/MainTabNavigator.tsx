@@ -1,34 +1,62 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text } from 'react-native';
 import { Routes, type MainTabParamList } from '@navigation/routes';
 import SearchScreen from '@screens/SearchScreen';
 import EventsScreen from '@screens/EventsScreen';
 import FavouritesScreen from '@screens/FavouritesScreen';
 import ProfileScreen from '@screens/ProfileScreen';
+import { SVGs } from '@svg';
+import { fs } from '@utils/responsive';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
-const TAB_ICONS: Record<string, string> = {
-  [Routes.Search]: '🔍',
-  [Routes.Events]: '📅',
-  [Routes.Favourites]: '♡',
-  [Routes.Profile]: '👤',
-};
+const ACTIVE   = '#000000';
+const INACTIVE = '#999999';
 
 export default function MainTabNavigator() {
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={{
         headerShown: false,
-        tabBarIcon: () => <Text style={{ fontSize: 18 }}>{TAB_ICONS[route.name]}</Text>,
-        tabBarActiveTintColor: '#000',
-        tabBarInactiveTintColor: '#999',
-      })}>
-      <Tab.Screen name={Routes.Search} component={SearchScreen} />
-      <Tab.Screen name={Routes.Events} component={EventsScreen} />
-      <Tab.Screen name={Routes.Favourites} component={FavouritesScreen} />
-      <Tab.Screen name={Routes.Profile} component={ProfileScreen} />
+        tabBarActiveTintColor: ACTIVE,
+        tabBarInactiveTintColor: INACTIVE,
+      }}>
+      <Tab.Screen
+        name={Routes.Search}
+        component={SearchScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <SVGs.Search width={fs(22)} height={fs(22)}  />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={Routes.Events}
+        component={EventsScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <SVGs.Event width={fs(22)} height={fs(22)}  />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={Routes.Favourites}
+        component={FavouritesScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <SVGs.HeartOutline width={fs(22)} height={fs(22)} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={Routes.Profile}
+        component={ProfileScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <SVGs.User width={fs(22)} height={fs(22)}  />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }

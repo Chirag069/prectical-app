@@ -2,7 +2,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const apiClient = axios.create({
-  baseURL: 'https://techeruditestaging.com',
+  baseURL: 'https://techeruditestaging.com/projects/plie-api/public/api/',
   timeout: 10000,
 });
 

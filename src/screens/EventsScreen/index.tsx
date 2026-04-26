@@ -9,7 +9,7 @@ import { toggleWishlist } from '@features/wishlist/wishlistSlice';
 import { showMessage } from '@utils/showMessage';
 import CustomHeader from '@components/CustomHeader';
 import EventCard from '@components/EventCard';
-import type { Event } from '@types/api';
+import type { Event } from '@appTypes/api';
 
 export default function EventsScreen() {
   const dispatch = useAppDispatch();

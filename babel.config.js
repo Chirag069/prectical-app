@@ -11,7 +11,7 @@ module.exports = {
         '@services': './src/services',
         '@storage': './src/storage',
         '@constants': './src/constants',
-        '@types': './src/types',
+        '@appTypes': './src/types',
         '@screens': './src/screens',
         '@navigation': './src/navigation',
         '@svg': './src/assets/svg',

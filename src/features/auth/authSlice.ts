@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { loginAPI } from '@services/auth/authService';
-import type { User } from '@types/api';
+import type { User } from '@appTypes/api';
 
 export const login = createAsyncThunk(
   'auth/login',
@@ -30,6 +30,9 @@ const authSlice = createSlice({
       state.token = null;
       state.user  = null;
     },
+    userDetailsUpdated(state, action: { payload: User }) {
+      state.user = action.payload;
+    }
   },
   extraReducers: builder => {
     builder
